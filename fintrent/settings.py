@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -135,6 +137,16 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 if os.environ.get('DJANGO_PRODUCTION'):
     # Turn DEBUG off!
     DEBUG = False
+
+    sentry_sdk.init(
+        dsn="https://d684d28809994d4f82a539ef7133e42d@o509742.ingest.sentry.io/5604677",
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=1.0,
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
     
     # load secret key from environment variable for security
     SECRET_KEY = os.environ['SECRET_KEY']
