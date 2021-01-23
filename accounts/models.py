@@ -17,3 +17,10 @@ class UserData(models.Model):
     fund_preference = models.JSONField()
     charity_preference = IntegerRangeField(min_value=0, max_value=100)
     salary_preference = IntegerRangeField(min_value=0, max_value=100)
+
+    def __str__(self):
+        return f'{self.user.username} ({self.pk})'
+    
+    class Meta:
+        ordering = ["user"]
+        verbose_name_plural = "User data"
