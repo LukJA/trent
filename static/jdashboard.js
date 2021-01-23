@@ -1,9 +1,13 @@
 /* globals Chart:false, feather:false */
 
+// Dynamic Events
+function testButtonFunc() {
+    document.getElementById("UI1").innerHTML = Date();
+}
+
+// On page load
 (function () {
     'use strict'
-  
-    feather.replace()
   
     // Graphs
     var ctx = document.getElementById('myChart')
