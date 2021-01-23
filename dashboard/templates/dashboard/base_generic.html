@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    {% load static %}
+    {% block head %}{% endblock %}
+    <!-- add icon link -->
+    <!-- <link rel = "icon" href =  "{% static 'favicon.svg' %}" type = "image/x-icon"> -->
+    <!-- Load required Bootstrap CSS -->
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<header>
+    {% block header %}
+    {% endblock %}
+</header>
+<body>
+    <!-- Page Content -->
+    {% block content %}
+    {% endblock %}
+</body>
+<footer>
+    {% block footer %}
+    {% endblock %}
+</footer>
+</html>
