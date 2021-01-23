@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # The following apps are required for django-allauth
-    'django.contrib.auth',
-    'django.contrib.messages',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
