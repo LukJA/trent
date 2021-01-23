@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crispy_forms',
+    'rest_framework',
 
     # User added apps
     'dashboard',
@@ -161,6 +162,18 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGIN_REDIRECT_URL = '/'
+
+# Rest framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
 
 # If deployed to production, override dev settings
 if os.environ.get('DJANGO_PRODUCTION'):
