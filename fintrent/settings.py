@@ -15,6 +15,7 @@ import os
 import django_heroku
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -153,6 +154,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 # If deployed to production, override dev settings
