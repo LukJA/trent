@@ -183,6 +183,7 @@ if os.environ.get('DJANGO_PRODUCTION'):
     # set up cookies over https
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
 
     # Activate Django-Heroku.
     django_heroku.settings(locals())
