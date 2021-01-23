@@ -15,7 +15,6 @@ import os
 import django_heroku
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,14 +43,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'crispy_forms',
+
+    # User added apps
+    'dashboard',
+    'accounts',
+
     # The following apps are required for django-allauth
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
-    # User added apps
-    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -145,6 +147,9 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 # Allauth stuff
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -155,7 +160,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
-
+LOGIN_REDIRECT_URL = '/'
 
 # If deployed to production, override dev settings
 if os.environ.get('DJANGO_PRODUCTION'):
