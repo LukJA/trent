@@ -3,9 +3,11 @@
 
 /* API Calls */
 var userdata;
+var time;
+var static;
+var value;
 
 function refreshData(){
-
   fetch('/api/userdata/', {
     credentials: 'include'
   })
@@ -14,11 +16,28 @@ function refreshData(){
     userdata = data[0];
     console.debug('Success:', userdata);
   })
+  .then(updatePIH)
   .catch((error) => {
     console.error('Error:', error);
   });
-
 };
+
+function getPredictedValue(){
+  fetch('/api/predict-value/', {
+    credentials: 'include'
+  })
+  .then(response => response.json())
+  .then(data => {
+    time = data['time'];
+    static = data['static'];
+    value = data['value'];
+    console.debug('Success:', data);
+  })
+  .then(updatePIH)
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
 
 
 // query type
@@ -37,9 +56,9 @@ function testButtonFunc() {
 var configPIH = {
   type: 'line',
   data: {
-    labels: ["Monday", "Tuesday", "wednesday"],
+    labels: ["Monday", "Tuesday", "wednesday","A","B", ""],
     datasets: [{
-      data: [15339,21345,23489],
+      data: [15339,21345,23489,1111,1111, 111],
       lineTension: 0,
       backgroundColor: 'transparent',
       borderColor: '#007bff',
@@ -130,18 +149,61 @@ var configASSETS = {
   }
 };
 
+
+function updatePIH(){
+  if (window.chartPIH){
+
+    var newdata = {
+        data: static,
+      }
+
+    var newlabels = {
+      labels: time.map(String)
+    }
+
+    window.chartPIH.data.datasets.pop();
+    window.chartPIH.data.datasets.push(newdata);
+
+    while(window.chartPIH.data.labels.length > 0) window.chartPIH.data.labels.pop()
+    //window.chartPIH.data.labels.push(newlabels); DOESNT FUCKING WORK
+    // But this works
+    for(i=0;i<time.map(String).length;i++)
+    {
+      window.chartPIH.data.labels.push(time.map(String)[i]);
+    }
+
+    console.log("New Chart Data: ", window.chartPIH.data)
+    window.chartPIH.update();
+    console.debug("Updating Chart");
+    document.getElementById('spinner').style.display = 'none';
+  }
+  else{
+    console.debug("No Chart yet");
+  }
+}
+
+// query type
+var refreshButton = document.getElementById("refreshButton");
+refreshButton.addEventListener("click", function(){
+  getPredictedValue();
+});
+
 window.onload = function(){
+  // replace dummy data in charts
+    
+  document.getElementById('spinner').style.display = 'none';
+  
   var ctx = document.getElementById('PIH-canvas')
-  var cPIH = new Chart(ctx, configPIH);
+  console.log(configPIH);
+  window.chartPIH = new Chart(ctx, configPIH);
 
   var ctx = document.getElementById('PSNE-canvas')
-  var cPIH = new Chart(ctx, configPSNE);
+  window.chartPSNE= new Chart(ctx, configPSNE);
 
   var ctx = document.getElementById('ASSETS-canvas')
-  var cPIH = new Chart(ctx, configASSETS);
+  window.chartASSETS = new Chart(ctx, configASSETS);
 
-  // Updatable loading spinner
-  setTimeout(function(){
-    document.getElementById('spinner').style.display = 'none';
-  }, 500); 
+  // Get new data
+  getPredictedValue();
+
 };
