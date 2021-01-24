@@ -36,7 +36,7 @@ class UserData(models.Model):
         ordering = ["user"]
         verbose_name_plural = "User data"
 
-    def get_predicted_salary(self, t):
+    def get_predicted_salary(self, t=30):
         t = np.arange(max(self.age, 22) -22, max(self.age, 22)+t-22)
         if self.job == "Tech":
             x = (1.722*t**3 - 164.483*t**2 + 5102.335*t + 30544.535)
@@ -52,7 +52,9 @@ class UserData(models.Model):
     def projectInvestments(self,t=30): #time to project investment
         static = np.zeros(t)
         value = np.zeros(t)
-        time = np.arange(0,t)
+        time = np.arange(0, t)
+        lower = np.zeros(t)
+        upper = np.zeros(t)
 
         for i in self.current_investment: #value increase of your current investment, should effect both static and value
             investment = np.zeros(t)
@@ -61,11 +63,15 @@ class UserData(models.Model):
             pr1, _ = Fund.objects.get(name=str(i[1])).predict_value(investment)
             value += np.array(pr1["Value"])
             static += np.array(pr1["Value"])
+            lower += np.array(pr1["Lower"])
+            upper += np.array(pr1["Higher"])
 
         predicted_salary = self.get_predicted_salary(t)
         for i in self.fund_preference:
             pr1, st = Fund.objects.get(name=str(i[1])).predict_value(predicted_salary*self.salary_preference*i[0]/100)
             value += np.array(pr1["Value"])
             static += np.array(st["Value"])
+            lower += np.array(pr1["Lower"])
+            upper += np.array(pr1["Higher"])
 
-        return value, time, static
+        return value, time, static, lower, upper

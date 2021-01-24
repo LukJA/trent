@@ -2,10 +2,7 @@
 
 
 /* API Calls */
-var userdata;
-var time;
-var static;
-var value;
+var userdata, currentInvestment, fundPreference;
 
 function refreshData(){
   fetch('/api/userdata/', {
@@ -14,6 +11,8 @@ function refreshData(){
   .then(response => response.json())
   .then(data => {
     userdata = data[0];
+    currentInvestment = userdata['current_investment']
+    fundPreference = userdata['fund_preference']
     console.debug('Success:', userdata);
   })
   .then(updatePIH)
@@ -21,6 +20,8 @@ function refreshData(){
     console.error('Error:', error);
   });
 };
+
+var time, static, value;
 
 function getPredictedValue(){
   fetch('/api/predict-value/', {
@@ -34,6 +35,24 @@ function getPredictedValue(){
     console.debug('Success:', data);
   })
   .then(updatePIH)
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+var predictedSalary, netExpendable;
+
+function getPredictedSalary(){
+  fetch('/api/predict-salary/', {
+    credentials: 'include'
+  })
+  .then(response => response.json())
+  .then(data => {
+    predictedSalary = data['predicted_salary'];
+    netExpendable = data['net_expendable'];
+    console.debug('Success:', data);
+  })
+  .then()
   .catch((error) => {
     console.error('Error:', error);
   });
@@ -199,6 +218,57 @@ function updatePIH(){
   }
 }
 
+var entries = [("Kids", 10),("House", 20)]
+var i = 0
+
+// HTMl defined type
+function dynamicCheckTag(set, self) {
+  document.getElementById(set).textContent = self;
+}
+
+function InitialiseCheckpoints(){
+  var addButton = document.getElementById("add_activity");
+  var tracklistTable = document.getElementById("tracklist");
+
+  entries.forEach(checkpoint => {
+    console.log(checkpoint);
+    tracklistTable.innerHTML += 
+    " \
+    <div class='input-group mb-3'> \
+        <span class='input-group-text'>$</span> \
+        <input id='id" + i + "' value='2020' type='text' class='form-control' aria-label='Text input with dropdown button' placeholder='2020'> \
+        <button id='bindtext" + i + "' class='btn btn-outline-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>Kids</button> \
+        <ul class='dropdown-menu dropdown-menu-dark dropdown-menu-end'> \
+            <li><a id='Kids" + i + "' class='dropdown-item' onclick='dynamicCheckTag(bindtext" + i +",'Kids' )>Kids</a></li> \
+            <li><a id='House" + i + "' class='dropdown-item' onclick='dynamicCheckTag(bindtext" + i +",'House' )>House</a></li> \
+            <li><a id='Other" + i + "' class='dropdown-item' onclick='dynamicCheckTag(bindtext" + i +",'Other' )>Other</a></li> \
+        </ul> \
+        </ul> \
+    </div>"
+    i++;
+  });
+
+
+  // Attach handler to the button click event
+  addButton.onclick = function() {
+    // Add a new row to the table using the correct activityNumber
+    tracklistTable.innerHTML += 
+    " \
+    <div class='input-group mb-3'> \
+        <span class='input-group-text'>$</span> \
+        <input id='id" + i + "' type='text' class='form-control' aria-label='Text input with dropdown button' placeholder='2020'> \
+        <button id='bindtext" + i + "' class='btn btn-outline-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>Pick</button> \
+        <ul class='dropdown-menu dropdown-menu-dark dropdown-menu-end'> \
+            <li><a id='Kids" + i + "' class='dropdown-item'>Kids</a></li> \
+            <li><a id='House" + i + "' class='dropdown-item'>House</a></li> \
+            <li><a id='other" + i + "' class='dropdown-item'>Other</a></li> \
+        </ul> \
+        </ul> \
+    </div>"
+    i++;
+  }
+};
+
 // query type
 var refreshButton = document.getElementById("refreshButton");
 refreshButton.addEventListener("click", function(){
@@ -222,5 +292,10 @@ window.onload = function(){
 
   // Get new data
   getPredictedValue();
+
+  // Initialise checkpoints
+  //~~~~
+  InitialiseCheckpoints();
+  // Select the add_activity button
 };
 

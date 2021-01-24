@@ -29,11 +29,25 @@ class PredictValue(APIView):
     def get(self, request):
         # Get invest from post request data
         userdata = UserData.objects.get(user=request.user)
-        value, time, static = userdata.projectInvestments()
+        value, time, static, lower, upper = userdata.projectInvestments()
         # user = request.user
         return Response(
-        {
+            {
             'value': value,
             'time': time,
             'static': static,
-        })
+            'lower': lower,
+            'upper': upper,
+            })
+
+class PredictSalary(APIView):
+    def get(self, request):
+        userdata = UserData.objects.get(user=request.user)
+        predicted_salary = userdata.get_predicted_salary(t=30)
+        net_expendable = list(predicted_salary*(1 - userdata.salary_preference/100))
+        return Response(
+            {
+            'predicted_salary': predicted_salary,
+            'net_expendable': net_expendable,
+            }
+            )

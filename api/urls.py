@@ -10,5 +10,6 @@ router.register(r'userdata', views.UserDataViewSet)
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('predict-value/', views.PredictValue.as_view()),
+    path('predict-salary/', views.PredictSalary.as_view()),
     path('', include(router.urls)),
 ]

@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<nav id="sidebarMenu" class="position-relative pt-0 col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+<nav id="sidebarMenu" class="sticky-top pt-0 col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
         <li class="nav-item">
@@ -98,11 +98,15 @@
     
     <h4>Life Checkpoints</h4>
     <!-- Checkpoints Overview -->
-    <ul class="list-group list-group-flush p-3">
-        <li class="list-group-item">Checkpoint 1</li>
-        <li class="list-group-item">Checkpoint 2</li>
-        <li class="list-group-item">Checkpoint 3</li>
+    <ul id="tracklist" class="list-group list-group-flush p-3">
     </ul>
+    <div class="pb-3 btn-group d-grid d-md-flex justify-content-md-end" role="group">
+        <button id="add_activity" type="button" class="btn btn-dark">
+            <span data-feather="plus-square"></span>
+            New Checkpoint
+        </button>
+    </div> 
+
 
     <h2>Current Position</h2>
     
@@ -113,7 +117,7 @@
 
     <h4>Primary Holdings</h4>
     <!-- Current Top Investments/Charities and USG Scores -->
-    <div class="btn-group d-grid d-md-flex justify-content-md-end" role="group">
+    <div class="p-3 btn-group d-grid d-md-flex justify-content-md-end" role="group">
         <button id="charityStat" type="button" class="btn btn-dark">
             <span data-feather="activity"></span>
             Charity Name
