@@ -1,96 +1,315 @@
 /* globals Chart:false, feather:false */
 
-// Dynamic Events
-function testButtonFunc() {
-    document.getElementById("UI1").innerHTML = Date();
+// gloabdefaults
+var investD = {
+  VFIFX: 10,
+  VMMSX: 10,
+  VSCGX: 10,
+  VASGX: 10,
+  VWIGX: 10
+};
+
+var careerIndustry = "";
+var currentSalary = 20000;
+var t0 = 2020;
+var n = 10;
+
+var cleanLabels =[];
+var cleanSalary =[];
+
+
+tn = t0 + n;
+var i;
+// Generate Labels
+for (i = t0; i < tn; i++) {
+  cleanLabels.push(String(i));
+  cleanSalary.push(i*2 + currentSalary)
 }
+
+
+
+function cons(num, min, max){
+  const MIN = min || 1;
+  const MAX = max || 20;
+  const parsed = parseInt(num)
+  return Math.min(Math.max(parsed, MIN), MAX)
+}
+
+// Investments
 
 var randomScalingFactor = function() {
   return Math.round(Math.random() * 100);
 };
 
-var chartColors = window.chartColors;
-var color = Chart.helpers.color;
-var config = {
+var configFund = {
+  type: 'doughnut',
   data: {
     datasets: [{
       data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
+        investD['VFIFX'],
+        investD['VMMSX'],
+        investD['VSCGX'],
+        investD['VASGX'],
+        investD['VWIGX'],
+
       ],
       backgroundColor: [
-        color(chartColors.red).alpha(0.5).rgbString(),
-        color(chartColors.orange).alpha(0.5).rgbString(),
-        color(chartColors.yellow).alpha(0.5).rgbString(),
-        color(chartColors.green).alpha(0.5).rgbString(),
-        color(chartColors.blue).alpha(0.5).rgbString(),
+        window.chartColors.red,
+        window.chartColors.orange,
+        window.chartColors.yellow,
+        window.chartColors.green,
+        window.chartColors.blue,
       ],
-      label: 'My dataset' // for legend
+      label: 'Dataset 1'
     }],
     labels: [
-      'Red',
-      'Orange',
-      'Yellow',
-      'Green',
-      'Blue'
+      'VFIFX',
+      'VMMSX',
+      'VSCGX',
+      'VASGX',
+      'VWIGX'
     ]
   },
   options: {
+    circumference: Math.PI,
+    rotation: -Math.PI,
     responsive: true,
     legend: {
-      position: 'right',
+     position: 'top',
     },
     title: {
       display: true,
-      text: 'Chart.js Polar Area Chart'
-    },
-    scale: {
-      ticks: {
-        beginAtZero: true
-      },
-      reverse: false
+      text: 'Investment Distribution',
+      fontSize: 30,
     },
     animation: {
-      animateRotate: false,
-      animateScale: true
+      animateScale: true,
+      animateRotate: true
     }
   }
 };
 
-window.onload = function() {
-  var ctx = document.getElementById('chart-area');
-  window.myPolarArea = Chart.PolarArea(ctx, config);
+
+
+//  VFIFX
+document.getElementById('g1plus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VFIFX'] = cons(investD['VFIFX'] + 1, 0 , 20);
+  dataset.data[0] = investD['VFIFX'];
+  window.myDoughnut.update();
+});
+document.getElementById('g1minus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VFIFX'] = cons(investD['VFIFX'] - 1, 0 , 20);
+  dataset.data[0] = investD['VFIFX'];
+  window.myDoughnut.update();
+});
+
+//  VMMSX
+document.getElementById('g2plus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VMMSX'] = cons(investD['VMMSX'] + 1, 0 , 20);
+  dataset.data[1] = investD['VMMSX'];
+  window.myDoughnut.update();
+});
+document.getElementById('g2minus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VMMSX'] = cons(investD['VMMSX'] - 1, 0 , 20);
+  dataset.data[1] = investD['VMMSX'];
+  window.myDoughnut.update();
+});
+
+//  VSCGX
+document.getElementById('g3plus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VSCGX'] = cons(investD['VSCGX'] + 1, 0 , 20);
+  dataset.data[2] = investD['VSCGX'];
+  window.myDoughnut.update();
+});
+document.getElementById('g3minus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VSCGX'] = cons(investD['VSCGX'] - 1, 0 , 20);
+  dataset.data[2] = investD['VSCGX'];
+  window.myDoughnut.update();
+});
+
+//  VASGX
+document.getElementById('g4plus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VASGX'] = cons(investD['VASGX'] + 1, 0 , 20);
+  dataset.data[3] = investD['VASGX'];
+  window.myDoughnut.update();
+});
+document.getElementById('g4minus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VASGX'] = cons(investD['VASGX'] - 1, 0 , 20);
+  dataset.data[3] = investD['VASGX'];
+  window.myDoughnut.update();
+});
+
+//  VWIGX
+document.getElementById('g5plus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VWIGX'] = cons(investD['VWIGX'] + 1, 0 , 20);
+  dataset.data[4] = investD['VWIGX'];
+  window.myDoughnut.update();
+});
+document.getElementById('g5minus').addEventListener('click', function() {
+  var dataset = configFund.data.datasets[0];
+  investD['VWIGX'] = cons(investD['VWIGX'] - 1, 0 , 20);
+  dataset.data[4] = investD['VWIGX'];
+  window.myDoughnut.update();
+});
+
+var color = Chart.helpers.color;
+
+var configSal = {
+  type: 'line',
+  data: {
+    labels: cleanLabels,
+    datasets: [{
+      data: cleanSalary,
+      backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+      borderColor: window.chartColors.red,
+      type: 'line',
+      fill: true,
+    }]
+  },
+  options: {
+    responsive: true,
+    legend: {
+      display: false
+    },
+    title: {
+      display: true,
+      text: 'Salary Progression',
+      fontSize: 30
+    },
+    tooltips: {
+      enabled: false,
+      mode: 'index',
+      intersect: false,
+    },
+    hover: {
+      //enabled: false,
+      mode: 'nearest',
+      intersect: true
+    },
+    scales: {
+      xAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Year'
+        }
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'GNI'
+        },
+        ticks: {
+          min: 0
+        }
+      }]
+    }
+  }
 };
 
-document.getElementById('randomizeData').addEventListener('click', function() {
-  config.data.datasets.forEach(function(piece, i) {
-    piece.data.forEach(function(value, j) {
-      config.data.datasets[i].data[j] = randomScalingFactor();
-    });
-  });
-  window.myPolarArea.update();
+
+// Industry select
+document.getElementById('tech').addEventListener('click', function() {
+  careerIndustry = "Tech";
+  document.getElementById('bindtext').textContent = "Tech";
+  updateSalary();
+});
+document.getElementById('finance').addEventListener('click', function() {
+  careerIndustry = "Finance";
+  document.getElementById('bindtext').textContent = "Finance";
+
+  updateSalary();
+});
+document.getElementById('other').addEventListener('click', function() {
+  careerIndustry = "Other";
+  document.getElementById('bindtext').textContent = "Other";
+  updateSalary();
+});
+document.getElementById('salaryBox').addEventListener('focusout', function() {
+  currentSalary =  parseInt(document.getElementById('salaryBox').value);
+  console.log(document.getElementById('salaryBox').value);
+  updateSalary();
 });
 
-var colorNames = Object.keys(window.chartColors);
-document.getElementById('addData').addEventListener('click', function() {
-  if (config.data.datasets.length > 0) {
-    config.data.labels.push('data #' + config.data.labels.length);
-    config.data.datasets.forEach(function(dataset) {
-      var colorName = colorNames[config.data.labels.length % colorNames.length];
-      dataset.backgroundColor.push(window.chartColors[colorName]);
-      dataset.data.push(randomScalingFactor());
-    });
-    window.myPolarArea.update();
+function updateSalary(){
+  tn = t0 + n;
+  var labels = [];
+  var i;
+
+  // Generate Labels
+  for (i = t0; i < tn; i++) {
+    labels.push(String(i));
   }
-});
-document.getElementById('removeData').addEventListener('click', function() {
-  config.data.labels.pop(); // remove the label first
-  config.data.datasets.forEach(function(dataset) {
-    dataset.backgroundColor.pop();
-    dataset.data.pop();
-  });
-  window.myPolarArea.update();
-});
+
+  var a,b,c,d,e;
+
+  if (careerIndustry == "Tech"){
+    a = 1.722;
+    b = -164.483;
+    c = 5102.335;
+    d = 30544.535;
+    e = 30000;
+  }
+  if (careerIndustry == "Finance"){
+    a = -42.170;
+    b = 2003.89;
+    c = -5752.958;
+    d = 66581.237;
+    e = 55000;
+  }
+  else
+  {
+    a = 2.044;
+    b = -137.947;
+    c = 399.435;
+    d = 22896;
+    e = 24000;
+  }
+
+  var salary = [currentSalary];
+  var j;
+  // Generate sal
+  for (j = 0; j < n; j++) {
+    var x = (a*j**3 +b*j**2 + c*j + d) * (currentSalary/e);
+    salary.push(x);
+  }
+
+
+
+  var dataset = configSal.data.datasets[0];
+  dataset.label = labels;
+  dataset.data = salary;
+  //dataset.label = ["A","B","C"];
+  //dataset.data = [1,2,3];
+  window.myLine.update();
+
+  console.log(labels, salary);
+}
+
+
+// OnLoad
+
+window.onload = function(){
+  var ctx = document.getElementById('SalaryProp-area').getContext('2d');
+  window.myLine = new Chart(ctx, configSal);
+
+  var ctx = document.getElementById('FundProportion-area').getContext('2d');
+  window.myDoughnut = new Chart(ctx, configFund);
+
+  //updateSalary();
+
+  // Updatable loading spinner
+  setTimeout(function(){
+    document.getElementById('spinner').style.display = 'none';
+  }, 500); 
+};
