@@ -8,6 +8,12 @@ from django.utils.decorators import method_decorator
 class DashboardView(TemplateView):
     template_name = 'dashboard/dashboard.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print('Data processing')
+        context['Test'] = 'Test'
+        return context
+
 @method_decorator(login_required, name='dispatch')
 class SettingsView(TemplateView):
     template_name = 'dashboard/settings.html'

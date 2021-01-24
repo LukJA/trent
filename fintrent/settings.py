@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # User added apps
     'dashboard',
     'accounts',
+    'api',
 
     # The following apps are required for django-allauth
     'django.contrib.sites',
