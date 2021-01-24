@@ -10,13 +10,17 @@ class IntegerRangeField(models.IntegerField):
         defaults.update(kwargs)
         return super(IntegerRangeField, self).formfield(**defaults)
 
+def current_investment_default():
+    return {"Test": 1}
+
 class UserData(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     salary = models.PositiveIntegerField()
     checkpoints = models.JSONField()
     fund_preference = models.JSONField()
+    current_investment = models.JSONField(default=current_investment_default)
     charity_preference = IntegerRangeField(min_value=0, max_value=100)
-    salary_preference = IntegerRangeField(min_value=0, max_value=100)
+    salary_preference = IntegerRangeField(min_value=0, max_value=100) # fraction invested
 
     def __str__(self):
         return f'{self.user.username} ({self.pk})'
