@@ -15,9 +15,8 @@ function refreshData(){
     fundPreference = userdata['fund_preference']
     console.debug('Success:', userdata);
   })
-  .then(updatePIH)
-  .then(updateASSETS)
   .then(updatePSNE)
+  .then(updateASSETS)
   .catch((error) => {
     console.error('Error:', error);
   });
@@ -247,16 +246,16 @@ function updatePIH(){
 
 function updateASSETS(){
   if (window.chartASSETS){
-    var now = currentInvestment;
-    var total = 0;
-    var proportion = []
-    now.forEach(ment => {
-      total += ment[1]
-    });
-    now.forEach(ment => {
-      proportion.push(ment[1]/total);
-    });
 
+    var total = 0;
+    var proportion = [];
+    currentInvestment.forEach(ment => {
+      total += ment[0]
+    });
+    currentInvestment.forEach(ment => {
+      proportion.push(ment[0]/total);
+    });
+    console.log("Current investement:", currentInvestment);
     console.log("New Proportions:", proportion);
     var newstat = {
         data: proportion,
@@ -418,10 +417,10 @@ function InitialiseCheckpoints(){
 };
 
 // query type
-var refreshButton = document.getElementById("refreshButton");
-refreshButton.addEventListener("click", function(){
-  getPredictedValue();
-});
+// var refreshButton = document.getElementById("refreshButton");
+// refreshButton.addEventListener("click", function(){
+//   getPredictedValue();
+// });
 
 // Assets Distro
 
@@ -444,7 +443,7 @@ window.onload = function(){
 
   // Get new data
   getPredictedValue();
-  updatePSNE();
+  refreshData();
 
   // Initialise checkpoints
   //~~~~
