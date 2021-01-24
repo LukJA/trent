@@ -5,3 +5,6 @@
 function testButtonFunc() {
     document.getElementById("UI1").innerHTML = Date();
 }
+
+function updateExpenses(){
+}

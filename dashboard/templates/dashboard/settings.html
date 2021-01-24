@@ -83,9 +83,19 @@
     </div>
 
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Age</span>
-        <input type="range" class="form-range" id="timelineRange">
+        <span class="input-group-text">Fraction To Invest: &nbsp; <span id="val"></span>  &nbsp; %</span>
+        <input type="range" class="form-range" id="frrange">
     </div>
+
+    <script>
+        var slider = document.getElementById("frrange");
+        var output = document.getElementById("val");
+        output.innerHTML = slider.value;
+        
+        slider.oninput = function() {
+          output.innerHTML = this.value;
+        }
+    </script>
       
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
