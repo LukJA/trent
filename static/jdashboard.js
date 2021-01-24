@@ -21,7 +21,7 @@ function refreshData(){
   });
 };
 
-var time, static, value;
+var time, static, value, lower, upper;
 
 function getPredictedValue(){
   fetch('/api/predict-value/', {
@@ -32,6 +32,8 @@ function getPredictedValue(){
     time = data['time'];
     static = data['static'];
     value = data['value'];
+    lower = data['lower'];
+    upper = data['upper'];
     console.debug('Success:', data);
   })
   .then(updatePIH)
@@ -71,7 +73,7 @@ function testButtonFunc() {
     document.getElementById("UI1").innerHTML = Date();
 }
 
-
+// Predicted investment holdings
 var configPIH = {
   type: 'line',
   data: {
@@ -185,6 +187,7 @@ var configASSETS = {
   }
 };
 
+var color = Chart.helpers.color;
 
 function updatePIH(){
   if (window.chartPIH){
@@ -204,6 +207,23 @@ function updatePIH(){
         borderWidth: 2,
         pointBackgroundColor: '#3489eb'
       }
+    var newupper = {
+        data: upper,
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: color(window.chartColors.blue).alpha(0.1).rgbString(),
+        borderWidth: 0,
+        pointRadius: 0,
+      }
+    var newlower = {
+        data: lower,
+        lineTension: 0,
+        backgroundColor: color(window.chartColors.blue).alpha(0.1).rgbString(),
+        borderColor: color(window.chartColors.blue).alpha(0.1).rgbString(),
+        borderWidth: 0,
+        fill: 2,
+        pointRadius: 0,
+      }
     var newlabels = {
       labels: time.map(String)
     }
@@ -211,6 +231,8 @@ function updatePIH(){
     window.chartPIH.data.datasets.pop();
     window.chartPIH.data.datasets.push(newstat);
     window.chartPIH.data.datasets.push(newval);
+    window.chartPIH.data.datasets.push(newupper);
+    window.chartPIH.data.datasets.push(newlower);
     while(window.chartPIH.data.labels.length > 0) window.chartPIH.data.labels.pop()
     //window.chartPIH.data.labels.push(newlabels); DOESNT FUCKING WORK
     // But this works
