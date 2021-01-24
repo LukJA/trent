@@ -206,7 +206,21 @@
 
     </div>
 
+    <div id="SalaryProp" class="p-3" style="width:100%">
+		<canvas id="SalaryProp-area"></canvas>
+    </div>
 
+    
+    <div class="input-group mb-3">
+        <input id="salaryBox" type="text" class="form-control" aria-label="Text input with dropdown button" laceholder="20000">
+        <button id="bindtext" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Choose Industry</button>
+        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+            <li><a id="tech" class="dropdown-item">Tech</a></li>
+            <li><a id="finance" class="dropdown-item">Finance</a></li>
+            <li><a id="other" class="dropdown-item">Other</a></li>
+        </ul>
+        </ul>
+    </div>
 
     </main>
     <script src="{% static 'janalysis.js' %}"></script>
