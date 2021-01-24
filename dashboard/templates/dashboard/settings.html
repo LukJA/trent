@@ -63,11 +63,12 @@
                 <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
             </div>
             <div class="dropdown">
-                <a class="btn btn-sm  btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                Options
+                <a class="btn btn-sm  btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                Account
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><a class="dropdown-item nav-link" href="{% url 'settings' %}">Settings</a></li>
+                    <li><a class="dropdown-item nav-link" href="{% url 'welcomenote' %}">Welcome Page</a></li>
                     <li><a class="dropdown-item nav-link" href="{% url 'account_logout' %}">Sign out</a></li>
                 </ul>
             </div>

@@ -93,6 +93,20 @@ var configPIH = {
       borderColor: '#007bff',
       borderWidth: 4,
       pointBackgroundColor: '#007bff'
+    }, {
+      data: [1,1,1,1,1,1],
+      lineTension: 0,
+      backgroundColor: 'transparent',
+      borderColor: '#007bff',
+      borderWidth: 4,
+      pointBackgroundColor: '#007bff'
+   } , {
+      data: [1,1,1,1,1,1],
+      lineTension: 0,
+      backgroundColor: 'transparent',
+      borderColor: '#007bff',
+      borderWidth: 4,
+      pointBackgroundColor: '#007bff'
     }]
   },
   options: {
@@ -119,7 +133,7 @@ var configPIH = {
       }]
     },
     legend: {
-      display: false
+      display: true
     }
   }
 };
@@ -192,7 +206,8 @@ function updatePIH(){
         backgroundColor: 'transparent',
         borderColor: '#eb4034',
         borderWidth: 2,
-        pointBackgroundColor: '#eb4034'
+        pointBackgroundColor: '#eb4034',
+        label: 'Without Investment',
         }
     var newval = {
         data: value,
@@ -200,7 +215,8 @@ function updatePIH(){
         backgroundColor: 'transparent',
         borderColor: '#3489eb',
         borderWidth: 2,
-        pointBackgroundColor: '#3489eb'
+        pointBackgroundColor: '#3489eb',
+        label: 'With Investments'
       }
     var newupper = {
         data: upper,
@@ -209,6 +225,7 @@ function updatePIH(){
         borderColor: color(window.chartColors.blue).alpha(0.1).rgbString(),
         borderWidth: 0,
         pointRadius: 0,
+        label: ''
       }
     var newlower = {
         data: lower,
@@ -218,10 +235,13 @@ function updatePIH(){
         borderWidth: 0,
         fill: 2,
         pointRadius: 0,
+        label: ''
       }
     var newlabels = {
       labels: time.map(String)
     }
+    window.chartPIH.data.datasets.pop();
+    window.chartPIH.data.datasets.pop();
     window.chartPIH.data.datasets.pop();
     window.chartPIH.data.datasets.pop();
     window.chartPIH.data.datasets.push(newstat);

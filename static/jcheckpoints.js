@@ -59,7 +59,7 @@ var config = {
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Chart.js Line Chart'
+					text: 'Lifetime Checkpoints WIP'
 				},
 				tooltips: {
 					mode: 'index',
