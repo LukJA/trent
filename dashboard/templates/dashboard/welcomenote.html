@@ -12,9 +12,7 @@
 
 {% block content %}
 <h1>The content</h1>
+<a class="nav-link"  href="{% url 'dashboard' %}">
 <button type="button" class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Your Dashboard</button>
-{% endblock %}
-
-{% block footer %}
-<h1>The footer</h1>
+</a>
 {% endblock %}
