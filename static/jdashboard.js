@@ -64,6 +64,13 @@ var configPIH = {
       borderColor: '#007bff',
       borderWidth: 4,
       pointBackgroundColor: '#007bff'
+    }, {
+      data: [15339,21345,23489,1111,1111, 111],
+      lineTension: 0,
+      backgroundColor: 'transparent',
+      borderColor: '#007bff',
+      borderWidth: 4,
+      pointBackgroundColor: '#007bff'
     }]
   },
   options: {
@@ -152,18 +159,19 @@ var configASSETS = {
 
 function updatePIH(){
   if (window.chartPIH){
-
-    var newdata = {
+    var newstat = {
         data: static,
       }
-
+    var newval = {
+        data: value,
+      }
     var newlabels = {
       labels: time.map(String)
     }
-
     window.chartPIH.data.datasets.pop();
-    window.chartPIH.data.datasets.push(newdata);
-
+    window.chartPIH.data.datasets.pop();
+    window.chartPIH.data.datasets.push(newstat);
+    window.chartPIH.data.datasets.push(newval);
     while(window.chartPIH.data.labels.length > 0) window.chartPIH.data.labels.pop()
     //window.chartPIH.data.labels.push(newlabels); DOESNT FUCKING WORK
     // But this works
@@ -171,7 +179,6 @@ function updatePIH(){
     {
       window.chartPIH.data.labels.push(time.map(String)[i]);
     }
-
     console.log("New Chart Data: ", window.chartPIH.data)
     window.chartPIH.update();
     console.debug("Updating Chart");
