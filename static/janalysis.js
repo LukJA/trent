@@ -279,8 +279,8 @@ function updateSalary(){
   var salary = [currentSalary];
   var j;
   // Generate sal
-  for (j = 1; j < n; j++) {
-    x = (a*j**3 +b*j**2 + c*j + d) * (currentSalary/24000);
+  for (j = 0; j < n; j++) {
+    var x = (a*j**3 +b*j**2 + c*j + d) * (currentSalary/e);
     salary.push(x);
   }
 
@@ -307,4 +307,9 @@ window.onload = function(){
   window.myDoughnut = new Chart(ctx, configFund);
 
   //updateSalary();
+
+  // Updatable loading spinner
+  setTimeout(function(){
+    document.getElementById('spinner').style.display = 'none';
+  }, 500); 
 };
