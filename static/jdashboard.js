@@ -102,6 +102,16 @@ var configPIH = {
       yAxes: [{
         ticks: {
           beginAtZero: false
+        },
+        scaleLabel: {
+          display: true,
+          labelString: '$'
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Years from now'
         }
       }]
     },
