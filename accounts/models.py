@@ -26,7 +26,7 @@ class UserData(models.Model):
     salary = models.PositiveIntegerField(default=35000)
     age = models.PositiveIntegerField(default=18)
     job = models.CharField(max_length=20, default='Finance')
-    checkpoints = models.JSONField(default=checkpoint_default
+    checkpoints = models.JSONField(default=checkpoint_default)
     fund_preference = models.JSONField(default=fund_preference_default)    # Portfolio, contains a list of lists contatining each fund and % of inverstment budget invested in it
     current_investment = models.JSONField(default=current_investment_default)
     charity_preference = IntegerRangeField(min_value=0, max_value=100, default=10)
