@@ -1,5 +1,6 @@
 from django.db import models
 import random
+import numpy as np
 
 
 class Fund(models.Model):
@@ -35,10 +36,21 @@ class Fund(models.Model):
         lower = []
         time_ls = []
         
+        checkpoint = np.array([     0.,      0.,      0.,      0.,      0.,      0.,      0.,
+            0.,      0.,      0., -10000., -10000., -10000., -10000.,
+            -10000., -20000., -20000., -20000., -20000., -20000., -20000.,
+            -20000., -20000., -20000., -20000., -20000., -20000., -20000.,
+            -30000., -30000., -30000., -30000., -10000., -20000., -20000.,
+            -20000., -20000.,      0.,      0.,      0.,      0.,      0.,
+            0.,      0.,      0.,      0.,      0.,      0.,      0.,
+            0.,      0.,      0.,      0.,      0.,      0.,      0.,
+            0.,      0.,      0.,      0.])
         
         for i in range(time):
-            value += invest[i]
-            static_val += invest[i]
+            value += invest[i] + checkpoint[i]
+            if value < 0:
+                value = 0
+            static_val += invest[i] + checkpoint[i]
             time_ls.append(i)
             d_value = value * float(self.mean)
             if d_value > 2000:
