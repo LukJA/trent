@@ -44,4 +44,3 @@ class Fund(models.Model):
         static["Value"] = static_ls
 
         return projection, static
-

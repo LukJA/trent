@@ -1,4 +1,4 @@
-{% extends 'dashboard/base_generic.html' %}
+{% extends 'dashboard/base_clean.html' %}
 
 {% load static %}
 
@@ -11,8 +11,33 @@
 {% endblock %}
 
 {% block content %}
-<h1>The content</h1>
-<a class="nav-link"  href="{% url 'dashboard' %}">
-<button type="button" class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Your Dashboard</button>
-</a>
+
+<main class="p-3 col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+<h1> Welcome to <strong>Fintrent.tech</strong> </h1>
+ 
+FinTrent is dynamic web-app that allows you take <em> understand your financial future. </em> <p></p>
+
+This was developped over the course of 24 hours, for the <a href="">Hex Cambridge</a> <br> 
+2020 Hackathon, and is therefore pretty barebones and probably very broken. <br> 
+Please post any issues you come accross on the GitHub repository! <br> 
+
+
+<div class="container pt-3">
+    <div class="row">
+      <div class="col-sm">
+        <a href="https://github.com/LukJA/trent/issues">
+            <img class="img-thumbnail rounded" src="{% static 'dash/GitHub_Logo.png' %}"/>
+        </a>
+      </div>
+      <div class="col-sm-9">
+        <a class="nav-link"  href="{% url 'dashboard' %}" class="mx-auto d-block" />
+        <button type="button" class="btn btn-outline-danger" href="{% url 'dashboard' %}">Your Dashboard</button>
+        </a>
+      </div>
+    </div>
+  </div>
+<div>
+
+</main>
 {% endblock %}

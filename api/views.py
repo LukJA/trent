@@ -26,13 +26,14 @@ class UserDataViewSet(viewsets.ModelViewSet):
 
 
 class PredictValue(APIView):
-    def post(self, request):
+    def get(self, request):
         # Get invest from post request data
-        invest = request.data['invest']
-        projection, static = Fund.objects.first().predict_value(invest)
+        userdata = UserData.objects.get(user=request.user)
+        value, time, static = userdata.projectInvestments()
         # user = request.user
         return Response(
         {
-            'projection': projection,
+            'value': value,
+            'time': time,
             'static': static,
         })
