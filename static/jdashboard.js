@@ -58,14 +58,14 @@ var configPIH = {
   data: {
     labels: ["Monday", "Tuesday", "wednesday","A","B", ""],
     datasets: [{
-      data: [15339,21345,23489,1111,1111, 111],
+      data: [1,1,1,1,1,1],
       lineTension: 0,
       backgroundColor: 'transparent',
       borderColor: '#007bff',
       borderWidth: 4,
       pointBackgroundColor: '#007bff'
     }, {
-      data: [15339,21345,23489,1111,1111, 111],
+      data: [1,1,1,1,1,1],
       lineTension: 0,
       backgroundColor: 'transparent',
       borderColor: '#007bff',
@@ -161,9 +161,19 @@ function updatePIH(){
   if (window.chartPIH){
     var newstat = {
         data: static,
-      }
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: '#eb4034',
+        borderWidth: 2,
+        pointBackgroundColor: '#eb4034'
+        }
     var newval = {
         data: value,
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: '#3489eb',
+        borderWidth: 2,
+        pointBackgroundColor: '#3489eb'
       }
     var newlabels = {
       labels: time.map(String)
@@ -212,5 +222,5 @@ window.onload = function(){
 
   // Get new data
   getPredictedValue();
-
 };
+
