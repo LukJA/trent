@@ -29,3 +29,7 @@ class ReportsView(TemplateView):
 @method_decorator(login_required, name='dispatch')
 class CheckpointsView(TemplateView):
     template_name = 'dashboard/checkpoints.html'
+
+@method_decorator(login_required, name='dispatch')
+class WelcomenoteView(TemplateView):
+    template_name = 'dashboard/welcomenote.html'

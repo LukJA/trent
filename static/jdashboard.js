@@ -20,6 +20,7 @@ function refreshData(){
 
 };
 
+
 // query type
 var refreshButton = document.getElementById("refreshButton");
 refreshButton.addEventListener("click", function(){

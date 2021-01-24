@@ -1,0 +1,20 @@
+{% extends 'dashboard/base_generic.html' %}
+
+{% load static %}
+
+{% block head %}
+<title>FinTrent 2021</title>
+{% endblock %}
+
+{% block header %}
+<h1>Hello!</h1>
+{% endblock %}
+
+{% block content %}
+<h1>The content</h1>
+<button type="button" class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Your Dashboard</button>
+{% endblock %}
+
+{% block footer %}
+<h1>The footer</h1>
+{% endblock %}
