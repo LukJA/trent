@@ -1,5 +1,6 @@
 {% extends 'dashboard/base_generic.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block head %}
     <title>Settings</title>
@@ -76,23 +77,12 @@
   
 <!-- PAGE CONTENT HERE -->   
 
-
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Age</span>
-        <input type="text" class="form-control" placeholder="22" aria-label="Username" aria-describedby="basic-addon1">
-    </div>
-
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Age</span>
-        <input type="range" class="form-range" id="timelineRange">
-    </div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-primary" type="submit" value="Update" style="margin-bottom: 20px;">
+  </form>
       
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-        <span class="input-group-text" id="basic-addon2"></span>
-    </div>
-      
-
     <div class="accordion" id="accordionExample">
 
         <div class="accordion-item">
@@ -212,5 +202,10 @@
 {% endblock %}
 
 {% block footer %}
+<style>
+    .form-group {
+        margin: 20px 0px;
+    }
+</style>
 {% endblock %}
 

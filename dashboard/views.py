@@ -1,6 +1,8 @@
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
 from django.utils.decorators import method_decorator
+from accounts.models import UserData
 
 
 # Create your views here.
@@ -15,8 +17,16 @@ class DashboardView(TemplateView):
         return context
 
 @method_decorator(login_required, name='dispatch')
-class SettingsView(TemplateView):
+class SettingsView(UpdateView):
+    model = UserData
+    fields = ['salary', 'age', 'charity_preference',
+              'salary_preference']
     template_name = 'dashboard/settings.html'
+    success_url = '/'
+
+    def get_object(self, queryset=None):
+        user = self.request.user
+        return UserData.objects.get(user=user)
 
 @method_decorator(login_required, name='dispatch')
 class AnalysisView(TemplateView):
