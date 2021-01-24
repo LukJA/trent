@@ -13,21 +13,24 @@ class IntegerRangeField(models.IntegerField):
         return super(IntegerRangeField, self).formfield(**defaults)
 
 def current_investment_default():
-    return [(0, "VFIFX"), (0, "VMMSX"), (0, "VSCGX"), (0, "VASGX"), (0, "VMIGX")]
+    return [[2000, "VFIFX"], [2000, "VMMSX"], [2000, "VSCGX"], [2000, "VASGX"], [2000, "VMIGX"]]
 
 def fund_preference_default():
-    return [[0.2, "VFIFX"], [0.2, "VMMSX"], [0.2, "VSCGX"], [0.2, "VASGX"], [0.2, "VMIGX"]]
+    return [[0.1, "VFIFX"], [0.1, "VMMSX"], [0.2, "VSCGX"], [0.2, "VASGX"], [0.4, "VMIGX"]]
+
+def checkpoint_default():
+    return [[1, "Test"]]
 
 class UserData(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    salary = models.PositiveIntegerField()
-    age = models.PositiveIntegerField()
-    job = models.CharField(max_length=20)
-    checkpoints = models.JSONField()
+    salary = models.PositiveIntegerField(default=35000)
+    age = models.PositiveIntegerField(default=18)
+    job = models.CharField(max_length=20, default='Finance')
+    checkpoints = models.JSONField(default=checkpoint_default
     fund_preference = models.JSONField(default=fund_preference_default)    # Portfolio, contains a list of lists contatining each fund and % of inverstment budget invested in it
     current_investment = models.JSONField(default=current_investment_default)
-    charity_preference = IntegerRangeField(min_value=0, max_value=100)
-    salary_preference = IntegerRangeField(min_value=0, max_value=100) # fraction invested
+    charity_preference = IntegerRangeField(min_value=0, max_value=100, default=10)
+    salary_preference = IntegerRangeField(min_value=0, max_value=100, default=20) # fraction invested
 
     def __str__(self):
         return f'{self.user.username} ({self.pk})'
