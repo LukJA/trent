@@ -238,8 +238,9 @@ document.getElementById('other').addEventListener('click', function() {
 document.getElementById('salaryBox').addEventListener('focusout', function() {
   currentSalary =  parseInt(document.getElementById('salaryBox').value);
   console.log(document.getElementById('salaryBox').value);
-  updateSalary();
+  updatePSNE();
 });
+
 
 function updateSalary(){
   tn = t0 + n;
@@ -285,14 +286,39 @@ function updateSalary(){
   }
 
 
-
+/*
   var dataset = configSal.data.datasets[0];
   dataset.label = labels;
   dataset.data = salary;
   //dataset.label = ["A","B","C"];
   //dataset.data = [1,2,3];
-  window.myLine.update();
+  window.myLine.update();*/
+  
+  var newval = {
+    data: salary,
+    backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+    borderColor: window.chartColors.red,
+    type: 'line',
+    fill: true,
+  }
+  var newlabels = {
+    labels: labels
+  }
 
+  window.myLine.data.datasets.pop();
+  window.myLine.data.datasets.push(newval);
+  while(window.myLine.data.labels.length > 0) window.myLine.data.labels.pop()
+  //window.chartPIH.data.labels.push(newlabels); DOESNT FUCKING WORK
+  // But this works
+  for(i=0;i<labels.length;i++)
+  {
+    window.myLine.data.labels.push(labels[i]);
+  }
+  console.log("New Chart Data: ", window.myLine.data)
+  window.myLine.update();
+  console.debug("Updating Chart");
+  document.getElementById('spinner').style.display = 'none';
+    
   console.log(labels, salary);
 }
 

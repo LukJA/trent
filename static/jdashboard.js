@@ -16,6 +16,8 @@ function refreshData(){
     console.debug('Success:', userdata);
   })
   .then(updatePIH)
+  .then(updateASSETS)
+  .then(updatePSNE)
   .catch((error) => {
     console.error('Error:', error);
   });
@@ -169,13 +171,7 @@ var configASSETS = {
       ],
       label: 'Dataset 1'
     }],
-    labels: [
-      'Red',
-      'Orange',
-      'Yellow',
-      'Green',
-      'Blue'
-    ]
+    labels: ["VFIFX","VMMSX","VSCGX","VASGX","VMIGX"]
   },
   options: {
     title: {
@@ -234,8 +230,6 @@ function updatePIH(){
     window.chartPIH.data.datasets.push(newupper);
     window.chartPIH.data.datasets.push(newlower);
     while(window.chartPIH.data.labels.length > 0) window.chartPIH.data.labels.pop()
-    //window.chartPIH.data.labels.push(newlabels); DOESNT FUCKING WORK
-    // But this works
     for(i=0;i<time.map(String).length;i++)
     {
       window.chartPIH.data.labels.push(time.map(String)[i]);
@@ -249,6 +243,128 @@ function updatePIH(){
     console.debug("No Chart yet");
   }
 }
+
+
+function updateASSETS(){
+  if (window.chartASSETS){
+    var now = currentInvestment;
+    var total = 0;
+    var proportion = []
+    now.forEach(ment => {
+      total += ment[1]
+    });
+    now.forEach(ment => {
+      proportion.push(ment[1]/total);
+    });
+
+    console.log("New Proportions:", proportion);
+    var newstat = {
+        data: proportion,
+        backgroundColor: [
+        window.chartColors.red,
+        window.chartColors.orange,
+        window.chartColors.yellow,
+        window.chartColors.green,
+        window.chartColors.blue,
+        ],
+        label: 'Dataset 1'
+        }
+
+    var newlabels = {
+      labels: time.map(String)
+    }
+    window.chartASSETS.data.datasets.pop();
+    window.chartASSETS.data.datasets.push(newstat);
+
+    console.log("New Chart Data: ", window.chartASSETS.data)
+    window.chartASSETS.update();
+    console.debug("Updating Chart");
+    document.getElementById('spinner').style.display = 'none';
+  }
+  else{
+    console.debug("No Chart yet");
+  }
+}
+
+var slider = document.getElementById("customRange20");
+var output = document.getElementById("ranget");
+output.innerHTML = slider.value;
+
+slider.onmouseup = function() {
+  output.innerHTML = this.value;
+  updatePSNE(this.value);
+}
+
+
+function updatePSNE(t=10){
+  var t0 = 2020;
+  var n = t;
+  tn = t0 + n;
+  var labelsvv = [];
+  var salary = [];
+  var i;
+
+  // Generate Labels
+  for (i = 0; i < n; i++) {
+    labelsvv.push(i+t0);
+  }
+
+  var a,b,c,d,e;
+
+  if (userdata.job == "Tech"){
+    a = 1.722;
+    b = -164.483;
+    c = 5102.335;
+    d = 30544.535;
+    e = 30000;
+  }
+  if (userdata.job== "Finance"){
+    a = -42.170;
+    b = 2003.89;
+    c = -5752.958;
+    d = 66581.237;
+    e = 55000;
+  }
+  else
+  {
+    a = 2.044;
+    b = -137.947;
+    c = 3399.435;
+    d = 22896;
+    e = 24000;
+  }
+  var j;
+  // Generate sal
+  for (j = 0; j < n; j++) {
+    var x = (a*j**3 +b*j**2 + c*j + d) * (userdata.salary/e);
+    salary.push(x);
+  }
+
+  
+  var newdat = {
+    data: salary,
+    lineTension: 0,
+    backgroundColor: 'transparent',
+    borderColor: '#eb4034',
+    borderWidth: 2,
+    pointBackgroundColor: '#eb4034'
+  }
+
+
+  window.chartPSNE.data.datasets.pop();
+  window.chartPSNE.data.datasets.push(newdat);
+  while(window.chartPSNE.data.labels.length > 0) window.chartPSNE.data.labels.pop()
+  for(i=0;i<labelsvv.map(String).length;i++)
+  {
+    window.chartPSNE.data.labels.push(labelsvv.map(String)[i]);
+  }
+  console.log("New Chart Data: ", window.chartPIH.data)
+  window.chartPSNE.update();
+  console.debug("Updating Chart");
+  document.getElementById('spinner').style.display = 'none';
+}
+
+
 
 var entries = [("Kids", 10),("House", 20)]
 var i = 0
@@ -307,6 +423,10 @@ refreshButton.addEventListener("click", function(){
   getPredictedValue();
 });
 
+// Assets Distro
+
+
+
 window.onload = function(){
   // replace dummy data in charts
     
@@ -324,6 +444,7 @@ window.onload = function(){
 
   // Get new data
   getPredictedValue();
+  updatePSNE();
 
   // Initialise checkpoints
   //~~~~

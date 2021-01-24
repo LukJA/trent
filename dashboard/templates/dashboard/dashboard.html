@@ -94,8 +94,9 @@
     <div id="PSNE" class="p-3" style="width:100%">
 		<canvas id="PSNE-canvas"></canvas>
     </div>
-    <input type="range" class="form-range" id="timelineRange">
-    
+    <label for="customRange20" class="form-label">Duration: &nbsp; <span id="ranget"></span>  &nbsp; </label>
+    <input type="range" class="form-range" min="5" max="20" id="customRange20">
+
     <h4>Life Checkpoints</h4>
     <!-- Checkpoints Overview -->
     <ul id="tracklist" class="list-group list-group-flush p-3">
@@ -123,7 +124,7 @@
             Charity Name
         </button>
         <button id="fundStat" type="button" class="btn btn-light">
-            <span data-feather="arrow-up-right"></span>
+            <span id="fundName" data-feather="arrow-up-right"></span>
             Fund Name
         </button>
     </div> 
